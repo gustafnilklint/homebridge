@@ -27,7 +27,7 @@ TelldusLivePlatform.prototype = {
         that.cloud.getDevices(function(err, devices) {
 
             if (!!err) return that.log('getDevices: ' + err.message);
-
+			that.log("Found " + devices.length + " devices.");
             var foundAccessories = [];
 
             // Clean non device
@@ -57,8 +57,12 @@ var TelldusLiveAccessory = function TelldusLiveAccessory(log, cloud, device) {
 
     this.log   = log;
     this.cloud = cloud;
-
-    var m = device.model.split(':');
+	
+	if(device.model) {
+    	var m = device.model.split(':');
+    }else{
+    	var m = ["unknown", "model"];
+    }
 
     // Set accessory info
     this.device         = device;
